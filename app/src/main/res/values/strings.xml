@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AndroidN Sample</string>
+    <string name="app_name">Android N Sample</string>
+    <string name="alert_dialog_ok">Ok</string>
+    <string name="alert_dialog_cancel">Cancel</string>
 </resources>
