@@ -11,20 +11,26 @@ public class MainActivity extends AppCompatActivity implements MyAlertDialogFrag
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private EditText nameEditText;
+    private EditText firstNameText;
+    private EditText lastNameText;
+
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameEditText = (EditText) findViewById(R.id.editText);
+        userService = new UserServiceImpl();
+
+        firstNameText = (EditText) findViewById(R.id.firstNameEditText);
+        lastNameText = (EditText) findViewById(R.id.lastNameEditText);
         final Button submitButton = (Button) findViewById(R.id.button);
 
         submitButton.setOnClickListener(
                 v -> {
                     DialogFragment fragment = MyAlertDialogFragment.newInstance(
-                            nameEditText.getText().toString());
+                            firstNameText.getText().toString());
                     fragment.show(getSupportFragmentManager(), "dialog");
                 }
         );
@@ -32,7 +38,10 @@ public class MainActivity extends AppCompatActivity implements MyAlertDialogFrag
 
     @Override
     public void positiveButtonClicked() {
-        Log.d(TAG, "the positive button was clicked");
+        User user = new User(firstNameText.getText().toString(), lastNameText.getText().toString());
+        userService.saveUser(user);
+
+        Log.d(TAG, "the positive button was clicked by this user: " + UserService.getUserFullName(user));
     }
 
 }
